@@ -28,10 +28,10 @@ public class TimeServlet extends HttpServlet {
 
     protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String timezoneParam = request.getParameter("timezone");
-        timezoneParam = timezoneParam.replaceAll(" ", "+").replaceAll("UTC", "GMT");
         TimeZone timeZone;
 
         if (timezoneParam != null && !timezoneParam.isEmpty()) {
+            timezoneParam = timezoneParam.replaceAll(" ", "+").replaceAll("UTC", "GMT");
             timeZone = TimeZone.getTimeZone(timezoneParam);
         } else {
             timeZone = TimeZone.getTimeZone("GMT");
@@ -43,7 +43,12 @@ public class TimeServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<html><body><h2>Поточний час (" + timeZone.getID().replaceAll("GMT", "UTC") + "): " + currentTime.replaceAll("GMT", "UTC") + "</h2></body></html>");
+
+        if (timeZone != null) {
+            out.println("<html><body><h2>Поточний час (" + timeZone.getID().replaceAll("GMT", "UTC") + "): " + currentTime.replaceAll("GMT", "UTC") + "</h2></body></html>");
+        } else {
+            out.println("<html><body><h2>Поточний час (" + timeZone.getID() + "): " + currentTime + "</h2></body></html>");
+        }
         out.println("<meta http-equiv=\"refresh\" content=\"1\">");
     }
 }
