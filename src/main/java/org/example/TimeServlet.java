@@ -29,8 +29,6 @@ public class TimeServlet extends HttpServlet {
         timezoneParam = timezoneParam.replaceAll(" ", "+");
         TimeZone timeZone;
 
-        System.out.println("TimeZone: " + timezoneParam);
-
         if (timezoneParam != null && !timezoneParam.isEmpty()) {
             timeZone = TimeZone.getTimeZone(timezoneParam);
         } else {
@@ -43,6 +41,6 @@ public class TimeServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<html><body>[" + timezoneParam +"]<h2>Поточний час (" + timeZone.getID() + "): " + currentTime + "</h2></body></html>");
+        out.println("<html><body><h2>Поточний час (" + timeZone.getID() + "): " + currentTime + "</h2></body></html>");
     }
 }
