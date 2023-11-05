@@ -43,6 +43,6 @@ public class TimeServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<html><body>[" + timezoneParam + abc +"]<h2>Поточний час (" + timeZone.getID() + "): " + currentTime + "</h2></body></html>");
+        out.println("<html><body>[" + timezoneParam +"]<h2>Поточний час (" + timeZone.getID() + "): " + currentTime + "</h2></body></html>");
     }
 }
