@@ -14,11 +14,13 @@ public class TimezoneValidateFilter extends HttpFilter {
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String timezoneParam = request.getParameter("timezone");
 
-        if (!isValidTimezone(timezoneParam)) {
+        if (timezoneParam == null || timezoneParam.isEmpty()) {
+            chain.doFilter(request, response);
+        } else if (isValidTimezone(timezoneParam)) {
+            chain.doFilter(request, response);
+        } else {
             response.setStatus(400);
             response.getWriter().write("Invalid timezone");
-        } else {
-            chain.doFilter(request, response);
         }
     }
 
